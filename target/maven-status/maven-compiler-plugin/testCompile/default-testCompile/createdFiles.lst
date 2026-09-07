@@ -1,0 +1,5 @@
+tests\BaseTest.class
+tests\OrderTest.class
+tests\LogoTest.class
+tests\NegativeOrderTest.class
+tests\AccordionTest.class
