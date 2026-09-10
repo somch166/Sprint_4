@@ -6,6 +6,7 @@ import org.junit.runners.Parameterized;
 import pages.MainPage;
 import pages.OrderPage;
 import pages.RentPage;
+import static org.junit.Assert.assertTrue;
 
 //баг в хроме тут. найден
 
@@ -51,6 +52,7 @@ public class OrderTest extends BaseTest {
         rentPage.selectRentalPeriod(period);
         rentPage.checkBlackColor();
         rentPage.clickOrderButton();
+        assertTrue("Модальное окно не появилось", rentPage.isOrderModalDisplayed());
     }
 
     /**
@@ -76,5 +78,6 @@ public class OrderTest extends BaseTest {
         rentPage.selectRentalPeriod(period);
         rentPage.checkGreyColor();
         rentPage.clickOrderButton();
+        assertTrue("Модальное окно не появилось", rentPage.isOrderModalDisplayed());
     }
 }
