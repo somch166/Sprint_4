@@ -9,7 +9,7 @@ import java.time.Duration;
 public class OrderPage {
     private final WebDriver driver;
 
-    // Все поля первой формы
+    // Поля первой формы
     private final By nameInput = By.xpath(".//input[@placeholder='* Имя']");
     private final By surnameInput = By.xpath(".//input[@placeholder='* Фамилия']");
     private final By addressInput = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
@@ -17,6 +17,13 @@ public class OrderPage {
     private final By phoneInput = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
     private final By nextButton = By.xpath(".//button[text()='Далее']");
     private final By firstStation = By.xpath(".//div[contains(@class, 'select-search__select')]//li[1]");
+
+    // Локаторы ошибок — вынесены в поля класса
+    private final By nameError = By.xpath(".//input[@placeholder='* Имя']/following-sibling::div[contains(@class, 'Input_ErrorMessage')]");
+    private final By surnameError = By.xpath(".//input[@placeholder='* Фамилия']/following-sibling::div[contains(@class, 'Input_ErrorMessage')]");
+    private final By addressError = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']/following-sibling::div[contains(@class, 'Input_ErrorMessage')]");
+    private final By phoneError = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']/following-sibling::div[contains(@class, 'Input_ErrorMessage')]");
+    private final By metroError = By.className("Order_MetroError__1BtZb");
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -49,25 +56,24 @@ public class OrderPage {
         driver.findElement(nextButton).click();
     }
 
-    // Методы для проверки ошибок — понадобятся для негативных тестов
+    // Методы для проверки ошибок — теперь используют поля класса
     public boolean isNameErrorDisplayed() {
-        return driver.findElement(By.xpath(".//input[@placeholder='* Имя']/following-sibling::div[contains(@class, 'Input_ErrorMessage')]")).isDisplayed();
+        return driver.findElement(nameError).isDisplayed();
     }
 
     public boolean isSurnameErrorDisplayed() {
-        return driver.findElement(By.xpath(".//input[@placeholder='* Фамилия']/following-sibling::div[contains(@class, 'Input_ErrorMessage')]")).isDisplayed();
+        return driver.findElement(surnameError).isDisplayed();
     }
 
     public boolean isAddressErrorDisplayed() {
-        return driver.findElement(By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']/following-sibling::div[contains(@class, 'Input_ErrorMessage')]")).isDisplayed();
+        return driver.findElement(addressError).isDisplayed();
     }
 
     public boolean isPhoneErrorDisplayed() {
-        return driver.findElement(By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']/following-sibling::div[contains(@class, 'Input_ErrorMessage')]")).isDisplayed();
+        return driver.findElement(phoneError).isDisplayed();
     }
 
     public boolean isMetroErrorDisplayed() {
-        // У метро отдельный класс ошибки
-        return driver.findElement(By.className("Order_MetroError__1BtZb")).isDisplayed();
+        return driver.findElement(metroError).isDisplayed();
     }
 }
